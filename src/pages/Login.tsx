@@ -83,7 +83,7 @@ function RoleCard({
       <button
         type="button"
         onClick={onClick}
-        className="mt-4 inline-flex items-center justify-center gap-2 rounded-md bg-secondary px-4 py-2.5 text-sm font-semibold text-tertiary transition-colors hover:bg-secondary/90"
+        className="mt-4 inline-flex items-center justify-center gap-2 rounded-md bg-btn px-4 py-2.5 text-sm font-semibold text-tertiary transition-colors hover:bg-btn-hover"
       >
         {ctaLabel}
         <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />

@@ -73,7 +73,7 @@ function Select({ value, onChange, children, className = "" }: SelectProps) {
                 }}
                 className={`flex w-full items-center justify-between px-3 py-2.5 text-left text-sm transition-colors ${
                   selected
-                    ? "bg-secondary text-white font-medium"
+                    ? "bg-btn text-white font-medium"
                     : "text-secondary hover:bg-primary/10"
                 }`}
               >

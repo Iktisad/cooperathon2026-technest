@@ -85,7 +85,7 @@ function FileCase() {
         <button
           type="button"
           onClick={handleFileAnother}
-          className="mt-6 rounded-md bg-secondary px-5 py-2.5 text-sm font-semibold text-tertiary hover:bg-secondary/90"
+          className="mt-6 rounded-md bg-btn px-5 py-2.5 text-sm font-semibold text-tertiary hover:bg-btn-hover"
         >
           File another case
         </button>
@@ -161,7 +161,7 @@ function FileCase() {
                   onClick={() => setUrgency(level)}
                   className={`flex-1 rounded-md border px-3 py-2 text-sm font-medium transition-colors ${
                     urgency === level
-                      ? "border-secondary bg-secondary text-tertiary"
+                      ? "border-btn bg-btn text-tertiary"
                       : "border-gray-200 bg-tertiary text-gray-700 hover:bg-gray-50"
                   }`}
                 >
@@ -246,7 +246,7 @@ function FileCase() {
           </p>
           <button
             type="submit"
-            className="rounded-md bg-secondary px-6 py-2.5 text-sm font-semibold text-tertiary hover:bg-secondary/90"
+            className="rounded-md bg-btn px-6 py-2.5 text-sm font-semibold text-tertiary hover:bg-btn-hover"
           >
             Submit Case
           </button>

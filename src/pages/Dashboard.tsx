@@ -1,19 +1,26 @@
 import {
   Activity,
   AlertTriangle,
+  BookOpen,
+  Bot,
   CalendarDays,
   ChevronRight,
   Download,
   FileText,
+  KeyRound,
   Lightbulb,
   Megaphone,
   Mic,
+  ShieldAlert,
   Users,
+  UserX,
 } from "lucide-react";
-import { useState, type FormEvent } from "react";
+import React, { useState, type FormEvent } from "react";
+import { Link } from "react-router-dom";
 import Card from "../components/Card";
 import Select from "../components/Select";
 import StatCard from "../components/StatCard";
+import type { TrainingCategory } from "../types";
 import {
   incidentReports,
   recentUpdates,
@@ -33,6 +40,22 @@ const resourceIcon = {
   Tip: Lightbulb,
   Download: Download,
 } as const;
+
+const categoryIcon: Record<TrainingCategory, React.ElementType> = {
+  Phishing: ShieldAlert,
+  Passwords: KeyRound,
+  "AI Safety": Bot,
+  "Social Engineering": UserX,
+  General: BookOpen,
+};
+
+const categoryBadge: Record<TrainingCategory, string> = {
+  Phishing: "bg-orange-100 text-orange-700",
+  Passwords: "bg-primary/15 text-secondary",
+  "AI Safety": "bg-purple-100 text-purple-700",
+  "Social Engineering": "bg-rose-100 text-rose-700",
+  General: "bg-gray-100 text-gray-600",
+};
 
 function Dashboard() {
   const [residentName, setResidentName] = useState("John Doe");
@@ -136,35 +159,57 @@ function Dashboard() {
         <div className="space-y-6">
           <Card title="Available Training Programs">
             <ul className="space-y-3">
-              {featuredTrainings.map((t) => (
-                <li
-                  key={t.id}
-                  className="flex items-center justify-between rounded-md border border-gray-100 p-3"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary/10 text-primary">
-                      <FileText className="h-5 w-5" />
-                    </div>
-                    <span className="text-sm font-medium text-secondary">
-                      {t.title}
-                    </span>
-                  </div>
-                  <button
-                    type="button"
-                    className="rounded-md bg-secondary px-3 py-1.5 text-xs font-semibold text-tertiary hover:bg-secondary/90"
+              {featuredTrainings.map((t) => {
+                const Icon = categoryIcon[t.category];
+                return (
+                  <li
+                    key={t.id}
+                    className="flex items-start justify-between gap-3 rounded-lg border border-gray-100 bg-gray-50/50 p-3"
                   >
-                    Schedule Session
-                  </button>
-                </li>
-              ))}
+                    <div className="flex items-start gap-3 min-w-0">
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary">
+                        <Icon className="h-5 w-5" />
+                      </div>
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="text-sm font-semibold text-secondary leading-snug">
+                            {t.title}
+                          </span>
+                          <span
+                            className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${categoryBadge[t.category]}`}
+                          >
+                            {t.category}
+                          </span>
+                        </div>
+                        <div className="mt-1.5 flex items-center gap-3 text-xs text-gray-500">
+                          <span className="inline-flex items-center gap-1">
+                            <CalendarDays className="h-3.5 w-3.5" />
+                            {t.nextSession}
+                          </span>
+                          <span className="inline-flex items-center gap-1">
+                            <Users className="h-3.5 w-3.5" />
+                            {t.enrolled}/{t.capacity}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      className="shrink-0 rounded-md bg-btn px-3 py-1.5 text-xs font-semibold text-tertiary hover:bg-btn-hover"
+                    >
+                      Schedule
+                    </button>
+                  </li>
+                );
+              })}
             </ul>
             <div className="mt-4 flex justify-center">
-              <button
-                type="button"
-                className="inline-flex items-center gap-2 rounded-md bg-secondary px-4 py-2 text-sm font-semibold text-tertiary hover:bg-secondary/90"
+              <Link
+                to="/training"
+                className="inline-flex items-center gap-2 rounded-md bg-btn px-4 py-2 text-sm font-semibold text-tertiary hover:bg-btn-hover"
               >
                 Browse All Training <ChevronRight className="h-4 w-4" />
-              </button>
+              </Link>
             </div>
           </Card>
 
@@ -242,7 +287,7 @@ function Dashboard() {
 
               <button
                 type="submit"
-                className="rounded-md bg-secondary px-5 py-2 text-sm font-semibold text-tertiary hover:bg-secondary/90"
+                className="rounded-md bg-btn px-5 py-2 text-sm font-semibold text-tertiary hover:bg-btn-hover"
               >
                 Submit Report
               </button>

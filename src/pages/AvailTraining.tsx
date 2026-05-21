@@ -70,7 +70,7 @@ function AvailTraining() {
             onClick={() => setFilter(f)}
             className={`rounded-full px-4 py-1.5 text-xs font-medium transition-colors ${
               filter === f
-                ? "bg-secondary text-tertiary"
+                ? "bg-btn text-tertiary"
                 : "bg-tertiary text-gray-700 hover:bg-gray-50 border border-gray-200"
             }`}
           >
@@ -127,7 +127,7 @@ function AvailTraining() {
                     type="button"
                     onClick={() => toggleRegister(p.id)}
                     disabled={full}
-                    className="w-full rounded-md bg-secondary px-4 py-2 text-sm font-semibold text-tertiary hover:bg-secondary/90 disabled:cursor-not-allowed disabled:bg-gray-300"
+                    className="w-full rounded-md bg-btn px-4 py-2 text-sm font-semibold text-tertiary hover:bg-btn-hover disabled:cursor-not-allowed disabled:bg-gray-300"
                   >
                     {full ? "Session Full" : "Register"}
                   </button>

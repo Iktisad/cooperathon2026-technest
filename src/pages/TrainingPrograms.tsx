@@ -45,7 +45,7 @@ function TrainingPrograms() {
             onClick={() => setFilter(f)}
             className={`rounded-full px-4 py-1.5 text-xs font-medium transition-colors ${
               filter === f
-                ? "bg-secondary text-tertiary"
+                ? "bg-btn text-tertiary"
                 : "bg-tertiary text-gray-700 hover:bg-gray-50 border border-gray-200"
             }`}
           >

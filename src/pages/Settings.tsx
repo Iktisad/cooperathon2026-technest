@@ -24,7 +24,7 @@ function Toggle({
         type="button"
         onClick={() => setOn((v) => !v)}
         className={`relative h-6 w-11 shrink-0 rounded-full transition-colors duration-200 ${
-          on ? "bg-secondary" : "bg-gray-300"
+          on ? "bg-btn" : "bg-gray-300"
         }`}
         aria-pressed={on}
       >

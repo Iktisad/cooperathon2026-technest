@@ -5,41 +5,24 @@ import {
   Bot,
   CalendarDays,
   ChevronRight,
-  Download,
-  FileText,
   KeyRound,
-  Lightbulb,
-  Megaphone,
-  Mic,
+  Plus,
   ShieldAlert,
   Users,
   UserX,
+  X,
 } from "lucide-react";
 import React, { useState, type FormEvent } from "react";
 import { Link } from "react-router-dom";
-import Card from "../components/Card";
 import Select from "../components/Select";
+import Card from "../components/Card";
 import StatCard from "../components/StatCard";
 import type { TrainingCategory } from "../types";
 import {
   incidentReports,
-  recentUpdates,
-  resources,
   supportCases,
   trainingPrograms,
 } from "../data/mockData";
-
-const updateIcon = {
-  alert: Megaphone,
-  webinar: Mic,
-  tip: Lightbulb,
-} as const;
-
-const resourceIcon = {
-  Guide: FileText,
-  Tip: Lightbulb,
-  Download: Download,
-} as const;
 
 const categoryIcon: Record<TrainingCategory, React.ElementType> = {
   Phishing: ShieldAlert,
@@ -57,12 +40,82 @@ const categoryBadge: Record<TrainingCategory, string> = {
   General: "bg-gray-100 text-gray-600",
 };
 
-function Dashboard() {
-  const [residentName, setResidentName] = useState("John Doe");
+const statusBadge: Record<string, string> = {
+  New: "bg-orange-100 text-orange-700",
+  "In Progress": "bg-primary/15 text-secondary",
+  Resolved: "bg-emerald-100 text-emerald-700",
+};
+
+function NewReportModal({ onClose }: { onClose: () => void }) {
+  const [resident, setResident] = useState("");
   const [issueType, setIssueType] = useState("Identity Theft");
-  const [description, setDescription] = useState(
-    "Resident's account was compromised. Needs assistance with recovery.",
+  const [description, setDescription] = useState("");
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    alert(`Report logged for ${resident}: ${issueType}`);
+    onClose();
+  };
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm"
+      onClick={(e) => e.target === e.currentTarget && onClose()}
+    >
+      <div className="w-full max-w-lg rounded-2xl bg-white shadow-xl">
+        <div className="flex items-center justify-between border-b border-gray-100 px-6 py-4">
+          <div className="text-base font-semibold text-secondary">New Incident Report</div>
+          <button type="button" onClick={onClose} className="rounded-md p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600">
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+        <form onSubmit={handleSubmit} className="space-y-4 px-6 py-5">
+          <div>
+            <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-gray-500">Resident's Name</label>
+            <input
+              required
+              value={resident}
+              onChange={(e) => setResident(e.target.value)}
+              placeholder="Full name"
+              className="w-full rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:border-primary focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/30"
+            />
+          </div>
+          <div>
+            <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-gray-500">Issue Type</label>
+            <Select value={issueType} onChange={(e) => setIssueType(e.target.value)}>
+              <option>Identity Theft</option>
+              <option>Phishing Email</option>
+              <option>Phone Scam</option>
+              <option>Account Takeover</option>
+              <option>Malware</option>
+            </Select>
+          </div>
+          <div>
+            <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-gray-500">Description</label>
+            <textarea
+              required
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              rows={3}
+              className="w-full rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:border-primary focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/30"
+            />
+          </div>
+          <div className="flex gap-3 pt-1">
+            <button type="button" onClick={onClose} className="flex-1 rounded-lg border border-gray-200 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50">
+              Cancel
+            </button>
+            <button type="submit" className="flex-1 rounded-lg bg-btn py-2 text-sm font-semibold text-white hover:bg-btn-hover">
+              Submit Report
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   );
+}
+
+function Dashboard() {
+  const [showReportModal, setShowReportModal] = useState(false);
 
   const newIncidents = incidentReports.filter((i) => i.status === "New").length;
   const activeCases = supportCases.length;
@@ -70,12 +123,6 @@ function Dashboard() {
     (t) => t.category === "Phishing",
   );
   const featuredTrainings = trainingPrograms.slice(0, 3);
-  const featuredResources = resources.slice(0, 3);
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    alert(`Incident report submitted for ${residentName}`);
-  };
 
   return (
     <div className="space-y-6">
@@ -213,109 +260,50 @@ function Dashboard() {
             </div>
           </Card>
 
-          <Card title="Resource Library">
-            <ul className="divide-y divide-gray-100">
-              {featuredResources.map((r) => {
-                const Icon = resourceIcon[r.category];
-                return (
-                  <li
-                    key={r.id}
-                    className="flex items-center justify-between py-3 first:pt-0 last:pb-0"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary/10 text-primary">
-                        <Icon className="h-4 w-4" />
-                      </div>
-                      <span className="text-sm font-medium text-secondary">
-                        {r.title}
-                      </span>
-                    </div>
-                    <ChevronRight className="h-4 w-4 text-gray-400" />
-                  </li>
-                );
-              })}
-            </ul>
-          </Card>
         </div>
 
         <div className="space-y-6">
-          <Card title="Report a Community Incident">
-            <form className="space-y-4" onSubmit={handleSubmit}>
-              <div>
-                <label className="mb-1 block text-sm font-medium text-secondary">
-                  Resident's Name:
-                </label>
-                <Select
-                  value={residentName}
-                  onChange={(e) => setResidentName(e.target.value)}
-                >
-                  <option>John Doe</option>
-                  <option>Marie Lavoie</option>
-                  <option>Samir Khan</option>
-                  <option>Elena Roy</option>
-                  <option>Daniel Smith</option>
-                </Select>
-              </div>
-
-              <div>
-                <label className="mb-1 block text-sm font-medium text-secondary">
-                  Issue Type:
-                </label>
-                <Select
-                  value={issueType}
-                  onChange={(e) => setIssueType(e.target.value)}
-                >
-                  <option>Identity Theft</option>
-                  <option>Phishing Email</option>
-                  <option>Phone Scam</option>
-                  <option>Account Takeover</option>
-                  <option>Malware</option>
-                </Select>
-              </div>
-
-              <div>
-                <label className="mb-1 block text-sm font-medium text-secondary">
-                  Description:
-                </label>
-                <textarea
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  rows={3}
-                  className="w-full rounded-md border border-gray-300 bg-tertiary px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/40"
-                />
-              </div>
-
+          <Card
+            title="Recent Incidents"
+            action={
               <button
-                type="submit"
-                className="rounded-md bg-btn px-5 py-2 text-sm font-semibold text-tertiary hover:bg-btn-hover"
+                type="button"
+                onClick={() => setShowReportModal(true)}
+                className="inline-flex items-center gap-1 rounded-md bg-btn px-3 py-1.5 text-xs font-semibold text-white hover:bg-btn-hover"
               >
-                Submit Report
+                <Plus className="h-3.5 w-3.5" /> New Report
               </button>
-            </form>
+            }
+          >
+            <ul className="divide-y divide-gray-100">
+              {incidentReports.slice(0, 4).map((r) => (
+                <li key={r.id} className="flex items-center justify-between gap-3 py-3 first:pt-0 last:pb-0">
+                  <div className="min-w-0">
+                    <div className="text-sm font-medium text-secondary truncate">{r.resident}</div>
+                    <div className="text-xs text-gray-400">{r.issueType} · {r.date}</div>
+                  </div>
+                  <span className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] font-semibold ${statusBadge[r.status]}`}>
+                    {r.status}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-3 border-t border-gray-100 pt-3">
+              <Link
+                to="/incidents"
+                className="inline-flex items-center gap-1 text-xs font-medium text-gray-400 hover:text-secondary"
+              >
+                View all incidents <ChevronRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
           </Card>
 
-          <Card title="Recent Updates">
-            <ul className="divide-y divide-gray-100">
-              {recentUpdates.map((u) => {
-                const Icon = updateIcon[u.type];
-                return (
-                  <li
-                    key={u.id}
-                    className="flex items-center gap-3 py-3 first:pt-0 last:pb-0"
-                  >
-                    <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary/10 text-primary">
-                      <Icon className="h-4 w-4" />
-                    </div>
-                    <span className="text-sm font-medium text-secondary">
-                      {u.title}
-                    </span>
-                  </li>
-                );
-              })}
-            </ul>
-          </Card>
         </div>
       </div>
+
+      {showReportModal && (
+        <NewReportModal onClose={() => setShowReportModal(false)} />
+      )}
     </div>
   );
 }

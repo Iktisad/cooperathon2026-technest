@@ -44,6 +44,8 @@ export interface Resource {
   title: string;
   description: string;
   category: ResourceCategory;
+  content: string[];
+  readTime?: string;
 }
 
 export interface Update {

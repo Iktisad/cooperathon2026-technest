@@ -1,4 +1,4 @@
-import { Bell, ShieldCheck } from "lucide-react";
+import { Bell, CircleUserRound, ShieldCheck } from "lucide-react";
 import { council } from "../data/mockData";
 
 function Header() {
@@ -35,12 +35,11 @@ function Header() {
             )}
           </button>
 
-          <div className="h-10 w-10 overflow-hidden rounded-full border-2 border-white/30">
-            <img
-              src="https://i.pravatar.cc/80?img=12"
-              alt="Profile"
-              className="h-full w-full object-cover"
-            />
+          <div
+            className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white/30 bg-white/5"
+            aria-label="Account"
+          >
+            <CircleUserRound className="h-7 w-7 text-tertiary/90" strokeWidth={1.75} />
           </div>
 
           <button

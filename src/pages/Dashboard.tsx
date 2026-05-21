@@ -146,7 +146,7 @@ function Dashboard() {
                   </div>
                   <button
                     type="button"
-                    className="rounded-md bg-primary px-3 py-1.5 text-xs font-semibold text-secondary hover:bg-primary-hover"
+                    className="rounded-md bg-secondary px-3 py-1.5 text-xs font-semibold text-tertiary hover:bg-secondary/90"
                   >
                     Schedule Session
                   </button>
@@ -156,7 +156,7 @@ function Dashboard() {
             <div className="mt-4 flex justify-center">
               <button
                 type="button"
-                className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-secondary hover:bg-primary-hover"
+                className="inline-flex items-center gap-2 rounded-md bg-secondary px-4 py-2 text-sm font-semibold text-tertiary hover:bg-secondary/90"
               >
                 Browse All Training <ChevronRight className="h-4 w-4" />
               </button>
@@ -239,7 +239,7 @@ function Dashboard() {
 
               <button
                 type="submit"
-                className="rounded-md bg-primary px-5 py-2 text-sm font-semibold text-secondary hover:bg-primary-hover"
+                className="rounded-md bg-secondary px-5 py-2 text-sm font-semibold text-tertiary hover:bg-secondary/90"
               >
                 Submit Report
               </button>

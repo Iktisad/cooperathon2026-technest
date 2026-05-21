@@ -23,8 +23,8 @@ function Toggle({
       <button
         type="button"
         onClick={() => setOn((v) => !v)}
-        className={`relative h-6 w-11 flex-shrink-0 rounded-full transition-colors ${
-          on ? "bg-primary" : "bg-gray-300"
+        className={`relative h-6 w-11 shrink-0 rounded-full transition-colors ${
+          on ? "bg-secondary" : "bg-gray-300"
         }`}
         aria-pressed={on}
       >

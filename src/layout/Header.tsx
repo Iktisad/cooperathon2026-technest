@@ -1,7 +1,17 @@
 import { Bell, CircleUserRound, ShieldCheck } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../auth/AuthContext";
 import { council } from "../data/mockData";
 
 function Header() {
+  const { signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogOut = () => {
+    signOut();
+    navigate("/login", { replace: true });
+  };
+
   return (
     <header className="bg-secondary text-tertiary">
       <div className="flex items-center justify-between px-8 py-4">
@@ -44,6 +54,7 @@ function Header() {
 
           <button
             type="button"
+            onClick={handleLogOut}
             className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-secondary hover:bg-primary-hover"
           >
             Log Out

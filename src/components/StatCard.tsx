@@ -1,5 +1,6 @@
 import { ArrowRight, type LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
+import { Link } from "react-router-dom";
 
 type Accent = "primary" | "orange" | "emerald";
 
@@ -9,7 +10,7 @@ interface StatCardProps {
   accent: Accent;
   children: ReactNode;
   actionLabel: string;
-  onAction?: () => void;
+  to: string;
 }
 
 const iconBg: Record<Accent, string> = {
@@ -19,9 +20,9 @@ const iconBg: Record<Accent, string> = {
 };
 
 const linkColor: Record<Accent, string> = {
-  primary: "text-secondary hover:text-secondary/70",
-  orange: "text-orange-600 hover:text-orange-700",
-  emerald: "text-emerald-600 hover:text-emerald-700",
+  primary: "text-secondary group-hover:text-secondary/70",
+  orange: "text-orange-600 group-hover:text-orange-700",
+  emerald: "text-emerald-600 group-hover:text-emerald-700",
 };
 
 const hoverRing: Record<Accent, string> = {
@@ -36,10 +37,11 @@ function StatCard({
   accent,
   children,
   actionLabel,
-  onAction,
+  to,
 }: StatCardProps) {
   return (
-    <div
+    <Link
+      to={to}
       className={`group flex flex-col rounded-xl bg-tertiary p-5 ring-1 ring-gray-100 shadow-sm transition-all hover:shadow-md hover:-translate-y-0.5 ${hoverRing[accent]}`}
     >
       <div className="flex items-start justify-between">
@@ -58,16 +60,14 @@ function StatCard({
       </div>
 
       <div className="mt-4 border-t border-gray-100 pt-3">
-        <button
-          type="button"
-          onClick={onAction}
+        <span
           className={`inline-flex items-center gap-1.5 text-xs font-semibold transition-colors ${linkColor[accent]}`}
         >
           {actionLabel}
           <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-        </button>
+        </span>
       </div>
-    </div>
+    </Link>
   );
 }
 

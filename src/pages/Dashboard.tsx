@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { useState, type FormEvent } from "react";
 import Card from "../components/Card";
+import Select from "../components/Select";
 import StatCard from "../components/StatCard";
 import {
   incidentReports,
@@ -199,34 +200,32 @@ function Dashboard() {
                 <label className="mb-1 block text-sm font-medium text-secondary">
                   Resident's Name:
                 </label>
-                <select
+                <Select
                   value={residentName}
                   onChange={(e) => setResidentName(e.target.value)}
-                  className="w-full rounded-md border border-gray-300 bg-tertiary px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/40"
                 >
                   <option>John Doe</option>
                   <option>Marie Lavoie</option>
                   <option>Samir Khan</option>
                   <option>Elena Roy</option>
                   <option>Daniel Smith</option>
-                </select>
+                </Select>
               </div>
 
               <div>
                 <label className="mb-1 block text-sm font-medium text-secondary">
                   Issue Type:
                 </label>
-                <select
+                <Select
                   value={issueType}
                   onChange={(e) => setIssueType(e.target.value)}
-                  className="w-full rounded-md border border-gray-300 bg-tertiary px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/40"
                 >
                   <option>Identity Theft</option>
                   <option>Phishing Email</option>
                   <option>Phone Scam</option>
                   <option>Account Takeover</option>
                   <option>Malware</option>
-                </select>
+                </Select>
               </div>
 
               <div>

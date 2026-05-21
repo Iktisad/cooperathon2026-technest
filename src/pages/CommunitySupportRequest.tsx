@@ -1,5 +1,6 @@
 import { CheckCircle2, LifeBuoy } from "lucide-react";
 import { useState, type FormEvent, type ReactNode } from "react";
+import Select from "../components/Select";
 
 const supportTypes = [
   "Account recovery help",
@@ -93,15 +94,14 @@ function CommunitySupportRequest() {
             />
           </Field>
           <Field label="Type of support" required>
-            <select
+            <Select
               value={supportType}
               onChange={(e) => setSupportType(e.target.value)}
-              className={inputClass}
             >
               {supportTypes.map((t) => (
                 <option key={t}>{t}</option>
               ))}
-            </select>
+            </Select>
           </Field>
 
           <Field label="Urgency" required>

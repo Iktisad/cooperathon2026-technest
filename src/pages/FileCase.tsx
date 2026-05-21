@@ -1,5 +1,6 @@
 import { CheckCircle2, FilePlus2, Paperclip, X } from "lucide-react";
 import { useRef, useState, type ChangeEvent, type FormEvent } from "react";
+import Select from "../components/Select";
 
 const issueTypes = [
   "Identity Theft",
@@ -141,15 +142,14 @@ function FileCase() {
             />
           </Field>
           <Field label="Issue Type" required>
-            <select
+            <Select
               value={issueType}
               onChange={(e) => setIssueType(e.target.value)}
-              className={inputClass}
             >
               {issueTypes.map((t) => (
                 <option key={t}>{t}</option>
               ))}
-            </select>
+            </Select>
           </Field>
 
           <Field label="Urgency" required>

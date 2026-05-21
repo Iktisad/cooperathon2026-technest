@@ -3,6 +3,7 @@ import { useState, type FormEvent } from "react";
 import Button from "../components/Button";
 import Card from "../components/Card";
 import PageHeader from "../components/PageHeader";
+import Select from "../components/Select";
 import { incidentReports } from "../data/mockData";
 import type { IncidentStatus } from "../types";
 
@@ -58,17 +59,16 @@ function IncidentReports() {
                 <label className="mb-1 block text-sm font-medium text-secondary">
                   Issue Type
                 </label>
-                <select
+                <Select
                   value={issueType}
                   onChange={(e) => setIssueType(e.target.value)}
-                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/40"
                 >
                   <option>Identity Theft</option>
                   <option>Phishing Email</option>
                   <option>Phone Scam</option>
                   <option>Account Takeover</option>
                   <option>Malware</option>
-                </select>
+                </Select>
               </div>
               <div className="md:col-span-2">
                 <label className="mb-1 block text-sm font-medium text-secondary">

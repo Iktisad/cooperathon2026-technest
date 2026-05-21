@@ -1,5 +1,6 @@
 import { CheckCircle2, ScanSearch } from "lucide-react";
 import { useState, type FormEvent, type ReactNode } from "react";
+import Select from "../components/Select";
 
 const auditTargets = [
   "Home Network (Wi-Fi, router)",
@@ -95,15 +96,14 @@ function RequestAudit() {
             />
           </Field>
           <Field label="What to audit" required>
-            <select
+            <Select
               value={target}
               onChange={(e) => setTarget(e.target.value)}
-              className={inputClass}
             >
               {auditTargets.map((t) => (
                 <option key={t}>{t}</option>
               ))}
-            </select>
+            </Select>
           </Field>
           <Field label="Roughly how many devices / accounts?">
             <input

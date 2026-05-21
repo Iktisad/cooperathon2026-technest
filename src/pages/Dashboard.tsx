@@ -61,6 +61,7 @@ function Dashboard() {
           icon={Activity}
           accent="primary"
           actionLabel="View Report"
+          to="/settings"
         >
           <div className="flex items-center gap-2">
             <span className="relative flex h-2 w-2">
@@ -79,6 +80,7 @@ function Dashboard() {
           icon={CalendarDays}
           accent="primary"
           actionLabel="Manage Schedule"
+          to="/training"
         >
           <div className="text-sm font-semibold text-secondary leading-tight">
             {featuredTraining?.title ?? "Phishing Awareness Workshop"}
@@ -93,6 +95,7 @@ function Dashboard() {
           icon={AlertTriangle}
           accent="orange"
           actionLabel="View Reports"
+          to="/incidents"
         >
           <div className="flex items-baseline gap-2">
             <span className="text-3xl font-bold text-secondary tracking-tight">
@@ -112,6 +115,7 @@ function Dashboard() {
           icon={Users}
           accent="emerald"
           actionLabel="View Cases"
+          to="/support"
         >
           <div className="flex items-baseline gap-2">
             <span className="text-3xl font-bold text-secondary tracking-tight">
